@@ -14,12 +14,10 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@ac593985615ec2ede58e132d2e21d2b1cbd6127c # v3.3.0
         with:
-          remote-repo: grafana/grafana-api-tests
-          local-repo-name: ${{github.event.pull_request.head.repo.full_name}}
+          repository: ${{github.event.pull_request.head.repo.full_name}}
           ref: ${{github.event.pull_request.head.ref}}
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ GRAFANABOT_PAT }}
           fetch-depth: 0 # Checkout everything to get access to the tags
-          #repository: ${{github.event.pull_request.head.repo.full_name}}
 
       - name: Send pull-request
         run: |
