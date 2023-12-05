@@ -29,7 +29,7 @@ jobs:
 
           # clone repo
           git clone --depth=1 --branch=main \
-            https://$TOKEN@github.com/grafana/grafana-api-tests
+            "https://$TOKEN@github.com/grafana/grafana-api-tests"
 
           # Create a new feature branch for the changes.
           git checkout -b $BRANCH_NAME
