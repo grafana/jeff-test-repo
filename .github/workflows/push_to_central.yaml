@@ -16,6 +16,8 @@ jobs:
           ref: ${{github.event.pull_request.head.ref}}
           token: ${{ secrets.JEFF_PAT }}
           fetch-depth: 0 # Checkout everything to get access to the tags
+        env:
+          TOKEN: ${{ secrets.JEFF_PAT }}
 
       - name: Send pull-request
         run: |
@@ -28,8 +30,7 @@ jobs:
           git config user.name "jalevin"
 
           # clone repo
-          git clone --depth=1 --branch=main \
-            "https://$TOKEN@github.com/grafana/grafana-api-tests"
+          git clone --depth=1 --branch=main "https://$TOKEN@github.com/grafana/grafana-api-tests"
 
           # Create a new feature branch for the changes.
           git checkout -b $BRANCH_NAME
