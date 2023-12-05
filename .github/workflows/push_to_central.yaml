@@ -30,7 +30,7 @@ jobs:
           git config user.name "Jeff Levin"
 
           # clone repo
-          git clone --depth=1 --branch=main https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-api-tests
+          git clone --depth=1 --branch=main https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-api-tests.git
 
           # Create a new feature branch for the changes.
           git checkout -b $BRANCH_NAME
