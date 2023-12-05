@@ -28,9 +28,6 @@ jobs:
           git config user.name "jalevin"
 
           # clone repo
-          git clone --depth=1  --branch=main \
-            https://jalevin:$TOKEN@github.com/grafana/grafana-api-tests
-
           git clone --depth=1 --branch=main \
             https://jalevin:${{ secrets.JEFF_PATT }}@github.com/grafana/grafana-api-tests
 
