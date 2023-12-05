@@ -24,8 +24,8 @@ jobs:
           COMMIT_MESSAGE="chore: update jeff-test-repo tests to latest $SHA"
           
           # Setup bench bot identity
-          git config user.email "grafanabot@grafana.com"
-          git config user.name "grafanabot"
+          git config user.email "jeff.levin@grafana.com"
+          git config user.name "jalevin"
 
           # clone repo
           git clone --depth=1  --branch=main \
