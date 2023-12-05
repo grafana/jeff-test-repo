@@ -21,9 +21,9 @@ jobs:
 
       - name: Send pull-request
         run: |
-          SHA=$(git rev-parse --short HEAD)
-          BRANCH_NAME="bench_bot/update/jeff-test-repo/$SHA"
-          COMMIT_MESSAGE="chore: update jeff-test-repo tests to latest $SHA"
+          #SHA=$(git rev-parse --short HEAD)
+          BRANCH_NAME="bench_bot/update/jeff-test-repo/${{github.event.pull_request.head.ref}}"
+          COMMIT_MESSAGE="chore: update jeff-test-repo tests to latest" #$SHA"
           
           # Setup bench bot identity
           git config user.email "jeff@levinology.com"
