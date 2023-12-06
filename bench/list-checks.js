@@ -20,23 +20,23 @@ export const options = {
 export default async function () {
   const page = browser.newPage();
 
-  console.log("HIIIIII", __ENV.GT_URL, __ENV.GT_USERNAME, __ENV.GT_PASSWORD);
+  console.log("HIIIIII", __ENV.GRAFANA_ADDRESS, __ENV.GRAFANA_USER, __ENV.GRAFANA_PASSWORD);
   try {
-    await page.goto(`${__ENV.GT_URL}/login`);
+    await page.goto(`${__ENV.GRAFANA_ADDRESS}/login`);
     const loginButton = page.locator("a[href='login/grafana_com']");
     loginButton.waitFor({ state: "visible" });
     await Promise.all([loginButton.click(), page.waitForNavigation()]);
 
     const usernameInput = page.locator("input[name='login']");
     usernameInput.waitFor({ state: "visible" });
-    usernameInput.type(__ENV.GT_USERNAME);
+    usernameInput.type(__ENV.GRAFANA_USER);
     const submit = page.locator("button[type='submit']");
     page.screenshot({ path: `${__ENV.SCREENSHOT_PATH}/1.png` });
     await submit.click();
 
     const passwordInput = page.locator("input[name='password']");
     passwordInput.waitFor({ state: "visible" });
-    await passwordInput.type(__ENV.GT_PASSWORD);
+    await passwordInput.type(__ENV.GRAFANA_PASSWORD);
     const submitAgain = await page.locator("button[type='submit']");
 
     await Promise.all([page.waitForNavigation(), submitAgain.click()]);
@@ -77,13 +77,13 @@ export default async function () {
     // await page.click(page.locator('[text=Synthetics]'));
     console.log(
       page.url(),
-      `${__ENV.GT_URL}/a/grafana-synthetic-monitoring-app/checks`
+      `${__ENV.GRAFANA_ADDRESS}/a/grafana-synthetic-monitoring-app/checks`
     );
 
     check(page, {
       "url is correct":
         page.url() ===
-        `${__ENV.GT_URL.replace(
+        `${__ENV.GRAFANA_ADDRESS.replace(
           ":443",
           ""
         )}/a/grafana-synthetic-monitoring-app/checks`,
