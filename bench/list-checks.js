@@ -18,6 +18,7 @@ export function getOptions() {
     },
   }
 }
+
 export const options = getOptions();
 
 export default async function () {
