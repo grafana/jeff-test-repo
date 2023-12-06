@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/grafana/grafana-bench:latest
-      options: --user root
+      #options: --user root
       env:
         GRAFANA_ADDRESS: ${{ secrets.GRAFANA_ADDRESS }}
         GRAFANA_USER: ${{ secrets.GRAFANA_USER }}
