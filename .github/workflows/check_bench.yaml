@@ -18,6 +18,7 @@ jobs:
         GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
         SCREENSHOT_PATH: screenshots
         USE_COMPILED_TESTS: true
+        K6_BROWSER_ENABLED: true
         TEST_PATH: bench
     steps:
       - uses: actions/checkout@v4
