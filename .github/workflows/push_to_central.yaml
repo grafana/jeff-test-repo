@@ -11,8 +11,9 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-        sparse-checkout: |
-          bench
+        with:
+          sparse-checkout: |
+            bench
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
