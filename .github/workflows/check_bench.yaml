@@ -21,9 +21,10 @@ jobs:
       - uses: actions/checkout@v4
       - name: run bench tests
         run: |
-          k6 run ./bench/list-checks.js
-          #grafana-bench smoke 
+          #k6 run ./bench/list-checks.js
+          grafana-bench smoke $GRAFANA_ADDRESS $GRAFANA_USER $GRAFANA_PASSWORD bench/
       - name: Archive screenshots
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: screenshots
