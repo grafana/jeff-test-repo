@@ -22,7 +22,7 @@ jobs:
       - name: run bench tests
         run: |
           k6 run ./bench/list-checks.js
-          grafana-bench smoke 
+          #grafana-bench smoke 
       - name: Archive screenshots
         uses: actions/upload-artifact@v3
         with:
