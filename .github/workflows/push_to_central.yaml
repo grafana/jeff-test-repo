@@ -12,11 +12,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
+          path: "local"
           sparse-checkout: |
             bench
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
+          path: "api-tests"
           repository: grafana/grafana-api-tests
           token: ${{ secrets.JEFF_PAT }} # `GH_PAT` is a secret that contains your PAT
       - name: Time and space
