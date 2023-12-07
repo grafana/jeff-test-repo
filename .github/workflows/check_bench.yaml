@@ -17,12 +17,14 @@ jobs:
         GRAFANA_USER: ${{ secrets.GRAFANA_USER }}
         GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
         SCREENSHOT_PATH: screenshots
+        USE_COMPILED_TESTS: true
+        TEST_PATH: bench
     steps:
       - uses: actions/checkout@v4
       - name: run bench tests
         run: |
           #k6 run ./bench/list-checks.js
-          grafana-bench smoke $GRAFANA_ADDRESS $GRAFANA_USER $GRAFANA_PASSWORD bench/
+          grafana-bench smoke $GRAFANA_ADDRESS $GRAFANA_USER $GRAFANA_PASSWORD all
       - name: Archive screenshots
         if: always()
         uses: actions/upload-artifact@v3
