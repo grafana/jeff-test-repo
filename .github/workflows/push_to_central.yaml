@@ -12,9 +12,9 @@ jobs:
       - name: Checkout private tools
         uses: actions/checkout@v4
         with:
-          path: "api-tests"
-          repository: grafana/grafana-api-tests
-          token: ${{ secrets.JEFF_PAT }} #- name: Checkout
+          path: "grafana-platform-tests"
+          repository: grafana/grafana-platform-tests
+          token: ${{ secrets.JEFF_PAT }}
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
@@ -26,18 +26,16 @@ jobs:
         run: ls -al local
       - name: create PR
         run: |
-          echo ${{ github.repository }}
-          echo ${{ secrets.JEFF_PAT }}
-          rm -rf ./api-tests/repositories/${{ github.repository }}
-          mkdir -p ./api-tests/repositories/${{ github.repository }}
-          cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
-          cd api-tests
+          cd grafana-platform-tests
           git config user.email "jeff@levinology.com"
           git config user.name "jalevin"
-          git remote show origin
-          git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-api-tests.git
-          git pull
+          #git remote show origin
+          #git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-platform-tests.git
+          #git pull
           git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
+          rm -rf ./grafana-platform-tests/repositories/${{ github.repository }}
+          mkdir -p ./grafana-platform-tests/repositories/${{ github.repository }}
+          cp -R ./local/bench ./grafana-platform-tests/repositories/${{ github.repository }}
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
           git push origin bench_bot/${{github.repository}}/${{ github.sha}}
@@ -51,6 +49,7 @@ jobs:
             --head "bench_bot/update/${{github.repository}}/${{ github.sha}}" \
             --base "main"
           rm -f token.txt
+
     # path: my-tools
     #   - name: Checkout code
     #     uses: actions/checkout@v4
@@ -73,7 +72,7 @@ jobs:
     #       git config user.name "Jeff Levin"
 
     #       # clone repo
-    #       git clone --depth=1 --branch=main "https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-api-tests.git"
+    #       git clone --depth=1 --branch=main "https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-grafana-platform-tests.git"
 
     #       # Create a new feature branch for the changes.
     #       git checkout -b $BRANCH_NAME
