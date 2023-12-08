@@ -21,13 +21,9 @@ jobs:
         uses: actions/checkout@v4
         with:
           path: "api-tests"
-          repository: grafana/grafana-api-tests
+          repository: jalevin/grafana-platform-tests
           token: ${{ secrets.JEFF_PAT }} #- name: Checkout
 
-
-
-      - name: Time and space
-        run: ls -al local
       - name: create PR
         run: |
 
@@ -37,7 +33,7 @@ jobs:
 
           # create branch and add files
           cd api-tests 
-          git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-api-tests.git
+          git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/jalevin/grafana-platform-tests.git
           git remote show origin
           git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
           git config user.email "jeff@levinology.com"
@@ -57,53 +53,3 @@ jobs:
             --head "bench_bot/update/${{github.repository}}/${{ github.sha}}" \
             --base "main"
           rm -f token.txt
-
-    # path: my-tools
-    #   - name: Checkout code
-    #     uses: actions/checkout@v4
-    #     with:
-    #       #repository: ${{github.event.pull_request.head.repo.full_name}}
-    #       #ref: ${{github.event.pull_request.head.ref}}
-    #       #token: ${{ secrets.JEFF_PAT }}
-    #       fetch-depth: 0 # Checkout everything to get access to the tags
-    #     env:
-    #       CENTRAL_TOKEN: ${{ secrets.JEFF_PAT }}
-
-    #   - name: Send pull-request
-    #     run: |
-    #       #SHA=$(git rev-parse --short HEAD)
-    #       BRANCH_NAME="bench_bot/update/jeff-test-repo/${{github.event.pull_request.head.ref}}"
-    #       COMMIT_MESSAGE="chore: update jeff-test-repo tests to latest" #$SHA"
-
-    #       # Setup bench bot identity
-    #       git config user.email "jeff@levinology.com"
-    #       git config user.name "Jeff Levin"
-
-    #       # clone repo
-    #       git clone --depth=1 --branch=main "https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-api-tests.git"
-
-    #       # Create a new feature branch for the changes.
-    #       git checkout -b $BRANCH_NAME
-
-    #       # wipe the dir
-    #       rm -r repositories/jeff-test-repo
-
-    #       # copy bench tests from jeff-test-repo into core repo
-    #       cp -r ../bench repositories/jeff-test-repo
-
-    #       # Commit the changes and push the feature branch to origin
-    #       git add .
-    #       git commit -m "$COMMIT_MESSAGE"
-    #       git push origin "$BRANCH_NAME"
-
-    #       # Store the PAT in a file that can be accessed by the GitHub CLI.
-    #       echo $CENTRAL_TOKEN > token.txt
-
-    #       # Authorize GitHub CLI for the current repository and
-    #       # create a pull-requests containing the updates.
-    #       #   gh auth login --with-token < token.txt
-    #       #   gh pr create \
-    #       #     --body "" \
-    #       #     --title "$COMMIT_MESSAGE"
-    #       #     --head "$BRANCH_NAME" \
-    #       #     --base "main"
