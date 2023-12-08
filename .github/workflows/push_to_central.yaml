@@ -36,7 +36,9 @@ jobs:
           cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
 
           # create branch and add files
-          cd api-tests && git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
+          cd api-tests 
+          git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-api-tests.git
+          git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
           git config user.email "jeff@levinology.com"
           git config user.name "jalevin"
           git add .
