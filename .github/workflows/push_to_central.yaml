@@ -35,11 +35,12 @@ jobs:
           git config user.email "jeff@levinology.com"
           git config user.name "Jeff, Yo"
           git remote show origin
-          git remote set-url origin https://${{secrets.JEFF_PAT}}@github.com/grafana/grafana-api-tests.git
-          git checkout -b bench_bot/update/${{ github.repository }}/${{ github.sha }}
+          git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-api-tests.git
+          git pull
+          git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
-          git push origin bench_bot/update/${{github.repository}}/${{ github.sha}}
+          git push origin bench_bot/${{github.repository}}/${{ github.sha}}
           touch token.txt
           echo ${{ secrets.JEFF_PAT }} > token.txt
           ls -al
