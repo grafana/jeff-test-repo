@@ -9,21 +9,23 @@ jobs:
   send-pull-requests:
     runs-on: ubuntu-latest
     steps:
+
+     - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          path: "api-tests"
+          repository: grafana/grafana-api-tests
+          token: ${{ secrets.JEFF_PAT }} #- name: Checkout
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
           path: "local"
           sparse-checkout: |
             bench
-          # `GH_PAT` is a secret that contains your PAT
-          #
-      # NEW CREDS HAPPENING HERE
-      - name: Checkout private tools
-        uses: actions/checkout@v4
-        with:
-          path: "api-tests"
-          repository: grafana/grafana-platform-tests
-          token: ${{ secrets.JEFF_PAT }}
+
+
+
+
       - name: Time and space
         run: ls -al local
       - name: create PR
