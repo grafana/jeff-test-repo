@@ -36,7 +36,7 @@ jobs:
           echo API-TESTS
           ls -lha ./api-tests/
           echo REPOSITORIES
-          ls -lha ./api-tests/respositories
+          ls -lha ./api-tests/repositories
           echo TEST-REPO
           ls -lha ./api-tests/repositories/jeff-test-repo
 
