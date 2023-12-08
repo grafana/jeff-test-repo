@@ -9,12 +9,6 @@ jobs:
   send-pull-requests:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout platform tests
-        uses: actions/checkout@v4
-        with:
-          path: "grafana-platform-tests"
-          repository: jalevin/grafana-platform-tests
-          token: ${{ secrets.JEFF_PAT }}
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
@@ -22,6 +16,14 @@ jobs:
           sparse-checkout: |
             bench
           # `GH_PAT` is a secret that contains your PAT
+          #
+      # NEW CREDS HAPPENING HERE
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          path: "api-tests"
+          repository: grafana/grafana-platform-tests
+          token: ${{ secrets.JEFF_PAT }}
       - name: Time and space
         run: ls -al local
       - name: create PR
@@ -29,13 +31,13 @@ jobs:
           cd grafana-platform-tests
           git config user.email "jeff@levinology.com"
           git config user.name "jalevin"
-          #git remote show origin
+          git remote show origin
           #git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-platform-tests.git
-          #git pull
+          git pull
           git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
-          rm -rf ./grafana-platform-tests/repositories/${{ github.repository }}
-          mkdir -p ./grafana-platform-tests/repositories/${{ github.repository }}
-          cp -R ./local/bench ./grafana-platform-tests/repositories/${{ github.repository }}
+          rm -rf ./api-tests/repositories/${{ github.repository }}
+          mkdir -p ./api-tests/repositories/${{ github.repository }}
+          cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
           git push origin bench_bot/${{github.repository}}/${{ github.sha}}
@@ -72,7 +74,7 @@ jobs:
     #       git config user.name "Jeff Levin"
 
     #       # clone repo
-    #       git clone --depth=1 --branch=main "https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-grafana-platform-tests.git"
+    #       git clone --depth=1 --branch=main "https://jalevin:$CENTRAL_TOKEN@github.com/grafana/grafana-api-tests.git"
 
     #       # Create a new feature branch for the changes.
     #       git checkout -b $BRANCH_NAME
