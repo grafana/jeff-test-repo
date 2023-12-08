@@ -2,7 +2,8 @@ name: bench-browser-tests
 
 on:
   pull_request:
-    branches: ["main"]
+    branches: 
+      - master
 
 jobs:
   test-bench:
