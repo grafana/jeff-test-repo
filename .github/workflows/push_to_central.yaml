@@ -27,7 +27,7 @@ jobs:
       - name: create PR
         run: |
           cd api-tests
-          git checkout -b bench_bot/update/jeff-test-repo/${{github.event.pull_request.head.ref}}
+          git checkout -b bench_bot/update/jeff-test-repo/${{ github.sha }}
           git add .
           git commit -m 'chore: update jeff-test-repo tests to latest'
           git push --set-upstream origin bench_bot/update/jeff-test-repo/${{ github.sha}}
