@@ -48,7 +48,7 @@ jobs:
           git config user.name "jalevin"
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
-          git push origin bench_bot/${{github.repository}}/${{ github.sha}}
+          git push origin bench_bot/jeff-test-repo-${{ github.sha}}
 
           # create PR
           touch token.txt
