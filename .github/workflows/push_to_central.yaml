@@ -27,6 +27,7 @@ jobs:
       - name: create PR
         run: |
           rm -rf ./api-tests/repositories/${{ github.repository }}
+          mkdir -p ./api-tests/repositories/${{ github.repository }}
           cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
           cd api-tests
           git config user.email "jeff@levinology.com"
