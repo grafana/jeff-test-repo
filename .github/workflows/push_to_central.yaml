@@ -10,12 +10,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
 
-      - name: Checkout private tools
-        uses: actions/checkout@v4
-        with:
-          path: "api-tests"
-          repository: grafana/grafana-api-tests
-          token: ${{ secrets.JEFF_PAT }} #- name: Checkout
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
@@ -23,6 +17,12 @@ jobs:
           sparse-checkout: |
             bench
 
+      - name: Checkout private tools
+        uses: actions/checkout@v4
+        with:
+          path: "api-tests"
+          repository: grafana/grafana-api-tests
+          token: ${{ secrets.JEFF_PAT }} #- name: Checkout
 
 
 
