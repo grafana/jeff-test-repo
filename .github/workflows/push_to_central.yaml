@@ -30,8 +30,6 @@ jobs:
         run: ls -al local
       - name: create PR
         run: |
-          git config user.email "jeff@levinology.com"
-          git config user.name "jalevin"
 
           rm -rf ./api-tests/repositories/${{ github.repository }}
           mkdir -p ./api-tests/repositories/${{ github.repository }}
@@ -39,6 +37,8 @@ jobs:
 
           # create branch and add files
           cd api-tests && git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
+          git config user.email "jeff@levinology.com"
+          git config user.name "jalevin"
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
           git push origin bench_bot/${{github.repository}}/${{ github.sha}}
