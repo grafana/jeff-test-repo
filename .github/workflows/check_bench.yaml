@@ -24,8 +24,6 @@ jobs:
       - uses: actions/checkout@v4
       - name: run bench tests
         run: |
-          ls -la
-          pwd
           grafana-bench smoke $GRAFANA_ADDRESS $GRAFANA_USER $GRAFANA_PASSWORD all
       - name: Archive screenshots
         if: always()

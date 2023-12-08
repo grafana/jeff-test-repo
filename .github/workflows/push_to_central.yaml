@@ -2,11 +2,36 @@ name: push tests upstream
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
 
 jobs:
+  test-bench:
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/grafana/grafana-bench:latest
+      options: --user root # tell my waaaaiiiiii
+      env:
+        GRAFANA_ADDRESS: ${{ secrets.GRAFANA_ADDRESS }}
+        GRAFANA_USER: ${{ secrets.GRAFANA_USER }}
+        GRAFANA_PASSWORD: ${{ secrets.GRAFANA_PASSWORD }}
+        SCREENSHOT_PATH: screenshots
+        USE_COMPILED_TESTS: true
+        K6_BROWSER_ENABLED: true
+        TEST_PATH: bench
+    steps:
+      - uses: actions/checkout@v4
+      - name: run bench tests
+        run: |
+          grafana-bench smoke $GRAFANA_ADDRESS $GRAFANA_USER $GRAFANA_PASSWORD all
+      - name: Archive screenshots
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: screenshots
+          path: screenshots
+
   send-pull-requests:
+    needs: ['test-bench']
     runs-on: ubuntu-latest
     steps:
 
@@ -26,29 +51,21 @@ jobs:
 
       - name: create PR
         run: |
+          REPONAME='jeff-test-repo'
 
-          rm -rf ./api-tests/repositories/jeff-test-repo
+          rm -rf ./api-tests/repositories/$REPONAME
           mkdir -p ./api-tests/repositories
-          mv ./local/bench ./api-tests/repositories/jeff-test-repo
-
-          echo ROOT
-          ls -lha .
-          echo API-TESTS
-          ls -lha ./api-tests/
-          echo REPOSITORIES
-          ls -lha ./api-tests/repositories
-          echo TEST-REPO
-          ls -lha ./api-tests/repositories/jeff-test-repo
+          mv ./local/bench ./api-tests/repositories/$REPONAME
 
           # create branch and add files
           cd api-tests 
           git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/jalevin/grafana-platform-tests.git
-          git checkout -b bench_bot/jeff-test-repo/${{ github.sha }}
+          git checkout -b bench_bot/$REPONAME/${{ github.sha }}
           git config user.email "jeff@levinology.com"
           git config user.name "jalevin"
           git add .
           git commit -m 'chore: update jeff-test-rop tests to latest'
-          git push origin bench_bot/jeff-test-repo/${{ github.sha}}
+          git push origin bench_bot/$REPONAME/${{ github.sha}}
 
           # create PR
           touch token.txt
@@ -58,6 +75,6 @@ jobs:
           gh pr create \
             --body "" \
             --title "chore: update tests for jeff-test-repo " \
-            --head "bench_bot/jeff-test-repo/${{ github.sha }}" \
+            --head bench_bot/$REPONAME/${{ github.sha }}" \
             --base "main"
           rm -f token.txt
