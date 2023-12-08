@@ -1,0 +1,21 @@
+version: '3.0'
+
+services:
+  bench:
+    container_name: benchtest
+    image: ghcr.io/grafana/grafana-bench:latest
+    environment:
+      - SCREENSHOT_PATH=screenshots
+      - GRAFANA_ADDRESS=
+      - GRAFANA_USER=
+      - GRAFANA_PASSWORD=
+      - USE_COMPILED_TESTS=true
+      - K6_BROWSER_ENABLED=true
+      - TEST_PATH=bench
+    volumes:
+      - ./bench:/home/bench/bench
+    entrypoint: |
+     env
+     grafana-bench smoke <grafana url> <user name> <password> all
+    # entrypoint: k6 run /home/bench/bench/list-checks.js
+   
