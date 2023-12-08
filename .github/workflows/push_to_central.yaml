@@ -30,12 +30,13 @@ jobs:
         run: ls -al local
       - name: create PR
         run: |
-          cd grafana-platform-tests
+          #cd api-tests
           git config user.email "jeff@levinology.com"
           git config user.name "jalevin"
-          git remote show origin
+          #git remote show origin
           #git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/grafana/grafana-platform-tests.git
-          git pull
+          #git pull
+          #cd api-tests
           git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
           rm -rf ./api-tests/repositories/${{ github.repository }}
           mkdir -p ./api-tests/repositories/${{ github.repository }}
