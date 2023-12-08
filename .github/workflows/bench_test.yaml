@@ -1,12 +1,12 @@
-name: bench-browser-tests
+name: bench-test
 
 on:
   pull_request:
     branches: 
-      - master
+      - main
 
 jobs:
-  test-bench:
+  bench-test:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/grafana/grafana-bench:latest
