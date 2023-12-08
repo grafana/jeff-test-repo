@@ -18,7 +18,7 @@ jobs:
       - name: Checkout this repo
         uses: actions/checkout@v4
         with:
-          path: "api-tests/repositories/{{ github.repository }}"
+          path: "api-tests/repositories/${{ github.repository }}"
           sparse-checkout: |
             bench
           # `GH_PAT` is a secret that contains your PAT
@@ -30,7 +30,7 @@ jobs:
           git checkout -b bench_bot/update/jeff-test-repo/${{github.event.pull_request.head.ref}}
           git add .
           git commit -m 'chore: update jeff-test-repo tests to latest'
-          git push --set-upstream origin bench_bot/update/jeff-test-repo/${{github.event.pull_request.head.ref}}
+          git push --set-upstream origin bench_bot/update/jeff-test-repo/${{ github.sha}}
     # path: my-tools
     #   - name: Checkout code
     #     uses: actions/checkout@v4
