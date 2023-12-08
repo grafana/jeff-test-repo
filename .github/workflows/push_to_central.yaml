@@ -27,9 +27,9 @@ jobs:
       - name: create PR
         run: |
 
-          rm -rf ./api-tests/repositories/${{ github.repository }}
-          mkdir -p ./api-tests/repositories/${{ github.repository }}
-          cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
+          rm -rf ./api-tests/repositories/jeff-test-repo
+          mkdir -p ./api-tests/repositories/jeff-test-repo
+          cp -R ./local/bench ./api-tests/repositories/jeff-test-repo
 
           echo ROOT
           ls -lha .
