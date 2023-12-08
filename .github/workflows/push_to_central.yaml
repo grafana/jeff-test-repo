@@ -12,9 +12,8 @@ jobs:
       - name: Checkout platform tests
         uses: actions/checkout@v4
         with:
-          branch: main
           path: "grafana-platform-tests"
-          repository: grafana/grafana-platform-tests
+          repository: jalevin/grafana-platform-tests
           token: ${{ secrets.JEFF_PAT }}
       - name: Checkout this repo
         uses: actions/checkout@v4
