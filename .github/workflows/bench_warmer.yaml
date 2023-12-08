@@ -1,11 +1,12 @@
-name: push tests upstream
+name: bench_push_upstream
 
 on:
   push:
-    branches: ["main"]
+    branches: 
+      - main
 
 jobs:
-  test-bench:
+  bench-test:
     runs-on: ubuntu-latest
     container:
       image: ghcr.io/grafana/grafana-bench:latest
@@ -30,7 +31,7 @@ jobs:
           name: screenshots
           path: screenshots
 
-  send-pull-requests:
+  bench-send-pull-request:
     needs: ['test-bench']
     runs-on: ubuntu-latest
     steps:
