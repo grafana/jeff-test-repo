@@ -28,7 +28,7 @@ jobs:
         run: |
 
           rm -rf ./api-tests/repositories/jeff-test-repo
-          mkdir -p ./api-tests/repositories/jeff-test-repo
+          mkdir -p ./api-tests/repositories
           mv ./local/bench ./api-tests/repositories/jeff-test-repo
 
           echo ROOT
