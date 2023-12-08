@@ -36,8 +36,9 @@ jobs:
           git remote set-url origin https://jalevin:${{secrets.JEFF_PAT}}@github.com/jalevin/grafana-platform-tests.git
           git remote -v
           git checkout -b bench_bot/${{ github.repository }}/${{ github.sha }}
-          git config user.email "jeff@levinology.com"
-          git config user.name "jalevin"
+          git remote -v
+          #git config user.email "jeff@levinology.com"
+          #git config user.name "jalevin"
           git add .
           git commit -m 'chore: update ${{ github.repository }} tests to latest'
           git push origin bench_bot/${{github.repository}}/${{ github.sha}}
