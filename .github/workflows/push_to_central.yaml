@@ -75,6 +75,6 @@ jobs:
           gh pr create \
             --body "" \
             --title "chore: update tests for jeff-test-repo " \
-            --head bench_bot/$REPONAME/${{ github.sha }}" \
+            --head bench_bot/$REPONAME/${{ github.sha }} \
             --base "main"
           rm -f token.txt
