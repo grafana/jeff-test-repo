@@ -30,8 +30,8 @@ jobs:
           rm -rf ./api-tests/repositories/${{ github.repository }}
           mkdir -p ./api-tests/repositories/${{ github.repository }}
           cp -R ./local/bench ./api-tests/repositories/${{ github.repository }}
-          ls -lha ./api/tests/repositories
-          ls -lha ./api/tests/repositories/${{ github.repository }}
+          ls -lha ./api-tests/repositories
+          ls -lha ./api-tests/repositories/${{ github.repository }}
 
           # create branch and add files
           cd api-tests 
