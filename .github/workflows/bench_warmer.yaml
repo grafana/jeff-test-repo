@@ -32,7 +32,7 @@ jobs:
           path: screenshots
 
   bench-send-pull-request:
-    needs: ['test-bench']
+    needs: ['bench-test']
     runs-on: ubuntu-latest
     steps:
 
